@@ -30,13 +30,16 @@ exports.AppModule = AppModule = __decorate([
                 useFactory: (cfg) => ({
                     type: 'postgres',
                     host: cfg.get('DB_HOST', 'localhost'),
-                    port: cfg.get('DB_PORT', 5432),
+                    port: parseInt(cfg.get('DB_PORT', '5432'), 10),
                     username: cfg.get('DB_USERNAME', 'postgres'),
                     password: cfg.get('DB_PASSWORD', ''),
                     database: cfg.get('DB_NAME', 'sharma_admin'),
                     entities: [admin_account_entity_1.AdminAccount, candidate_entity_1.Candidate, user_entity_1.User],
-                    synchronize: cfg.get('NODE_ENV') !== 'production',
+                    synchronize: true,
                     logging: cfg.get('NODE_ENV') === 'development',
+                    ssl: cfg.get('NODE_ENV') === 'production'
+                        ? { rejectUnauthorized: false }
+                        : false,
                 }),
             }),
             throttler_1.ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]),

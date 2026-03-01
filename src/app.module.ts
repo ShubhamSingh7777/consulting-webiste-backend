@@ -26,7 +26,7 @@ import { User } from './users/entities/user.entity';
   password: cfg.get('DB_PASSWORD', ''),
   database: cfg.get('DB_NAME', 'sharma_admin'),
   entities: [AdminAccount, Candidate, User],
-  synchronize: cfg.get('NODE_ENV') !== 'production',
+  synchronize: true,
   logging: cfg.get('NODE_ENV') === 'development',
   ssl: cfg.get('NODE_ENV') === 'production'
     ? { rejectUnauthorized: false }
