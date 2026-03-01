@@ -18,17 +18,20 @@ import { User } from './users/entities/user.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (cfg: ConfigService) => ({
-        type: 'postgres',
-        host: cfg.get('DB_HOST', 'localhost'),
-        port: cfg.get<number>('DB_PORT', 5432),
-        username: cfg.get('DB_USERNAME', 'postgres'),
-        password: cfg.get('DB_PASSWORD', ''),
-        database: cfg.get('DB_NAME', 'sharma_admin'),
-        entities: [AdminAccount, Candidate, User],
-        synchronize: cfg.get('NODE_ENV') !== 'production', // auto-migrate in dev
-        logging: cfg.get('NODE_ENV') === 'development',
-      }),
+     useFactory: (cfg: ConfigService) => ({
+  type: 'postgres',
+  host: cfg.get('DB_HOST', 'localhost'),
+  port: parseInt(cfg.get('DB_PORT', '5432'), 10),
+  username: cfg.get('DB_USERNAME', 'postgres'),
+  password: cfg.get('DB_PASSWORD', ''),
+  database: cfg.get('DB_NAME', 'sharma_admin'),
+  entities: [AdminAccount, Candidate, User],
+  synchronize: cfg.get('NODE_ENV') !== 'production',
+  logging: cfg.get('NODE_ENV') === 'development',
+  ssl: cfg.get('NODE_ENV') === 'production'
+    ? { rejectUnauthorized: false }
+    : false,
+}),
     }),
 
     // Rate limiting — 100 req/min per IP
