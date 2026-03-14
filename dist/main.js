@@ -8,10 +8,16 @@ const app_module_1 = require("./app.module");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({
-        origin: process.env.NODE_ENV === 'production'
-            ? 'https://sharmaassociates.in'
-            : '*',
+        origin: [
+            'https://sharmaassociates.in',
+            'https://www.sharmaassociates.in',
+            'https://consulting-website-two-silk.vercel.app',
+            'http://localhost:3000',
+            'http://localhost:3001',
+        ],
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
     });
     app.useGlobalPipes(new common_1.ValidationPipe({
         whitelist: true,

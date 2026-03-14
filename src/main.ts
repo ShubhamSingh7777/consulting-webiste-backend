@@ -9,12 +9,19 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // CORS — allow your frontend origin
-  app.enableCors({
-    origin: process.env.NODE_ENV === 'production'
-      ? 'https://sharmaassociates.in'
-      : '*',
-    credentials: true,
-  });
+// CORS — allow your frontend origin
+app.enableCors({
+  origin: [
+    'https://sharmaassociates.in',           // production domain
+    'https://www.sharmaassociates.in',        // www version
+    'https://consulting-website-two-silk.vercel.app',  // Vercel frontend
+    'http://localhost:3000',                  // local dev
+    'http://localhost:3001',
+  ],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+});
 
   // Global validation pipe
   app.useGlobalPipes(new ValidationPipe({
