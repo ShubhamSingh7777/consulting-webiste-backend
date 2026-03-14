@@ -16,7 +16,9 @@ app.enableCors({
     'https://www.sharmaassociates.in',        // www version
     'https://consulting-website-two-silk.vercel.app',  // Vercel frontend
     'http://localhost:3000',                  // local dev
+    'https://consulting-website-git-main-shubhs-projects-07e7d7ee.vercel.app',
     'https://consulting-webiste-backend-production.up.railway.app/api',
+    
     
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
