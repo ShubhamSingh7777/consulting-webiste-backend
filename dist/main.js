@@ -13,7 +13,7 @@ async function bootstrap() {
             'https://www.sharmaassociates.in',
             'https://consulting-website-two-silk.vercel.app',
             'http://localhost:3000',
-            'http://localhost:3001',
+            'https://consulting-webiste-backend-production.up.railway.app/api',
         ],
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         credentials: true,
